@@ -1,22 +1,29 @@
 import "font-awesome/css/font-awesome.min.css";
 import { useEffect, useState } from "react";
 
+const staticCards = [
+  { id: 1, title: "سبحان الله", count: 100, backgroundColor: "#E3F2FD" },
+  { id: 2, title: "الحمد لله", count: 33, backgroundColor: "#FFF3E0" },
+  { id: 3, title: "لا إله إلا الله", count: 7, backgroundColor: "#E8F5E9" },
+  { id: 4, title: "الله أكبر", count: 10, backgroundColor: "#FCE4EC" },
+  { id: 5, title: "سبحان الله وبحمده", count: 100, backgroundColor: "#F3E5F5" },
+  { id: 6, title: "أستغفر الله", count: 33, backgroundColor: "#E0F7FA" },
+  { id: 7, title: "اللهم صل وسلم على نبينا محمد", count: 10, backgroundColor: "#FFFDE7" },
+  { id: 8, title: "لا حول ولا قوة إلا بالله", count: 33, backgroundColor: "#F9FBE7" },
+  { id: 9, title: "سبحان الله العظيم", count: 100, backgroundColor: "#E1F5FE" }
+];
+
 const Cards = () => {
   const [cards, setCards] = useState([]);
   const [counters, setCounters] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:3001/cards?_limit=6")
-      .then(res => res.json())
-      .then(data => {
-        setCards(data);
-        const initialCounters = {};
-        data.forEach(card => {
-          initialCounters[card.id] = card.count;
-        });
-        setCounters(initialCounters);
-      })
-      .catch(err => console.error(err));
+    setCards(staticCards);
+    const initialCounters = {};
+    staticCards.forEach(card => {
+      initialCounters[card.id] = card.count;
+    });
+    setCounters(initialCounters);
   }, []);
 
   const decreaseCounter = (id) => {
@@ -39,7 +46,7 @@ const Cards = () => {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "80px 60px",
+        gap: "40px 40px",
         padding: "20px",
         justifyItems: "center",
       }}
@@ -49,9 +56,10 @@ const Cards = () => {
           key={card.id}
           style={{
             backgroundColor: card.backgroundColor,
-            filter: "brightness(85%)",     
+            filter: "brightness(85%)",
             padding: "7px",
             borderRadius: "12px",
+            top:"100px",
             width: "100%",
             maxWidth: "320px",
             height: "150px",
@@ -72,7 +80,7 @@ const Cards = () => {
             {counters[card.id]}
           </p>
           <p style={{ margin: "5px 0 0", fontSize: "1rem", color: "#aaa" }}>
-            {card.count} 
+            {card.count}
           </p>
 
           <div
